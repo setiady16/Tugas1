@@ -7,6 +7,7 @@ use Auth;
 
 class AuthController extends Controller
 {
+    //Testing COmmt
     public function index(){
         return view('auth.login');
 
