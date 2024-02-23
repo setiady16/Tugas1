@@ -40,6 +40,13 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
+
+                                    @if(session()->has('pesan'))
+                                        <div class="alert alert-danger">
+                                            {{ session()->get('pesan') }}
+                                        </div>
+                                    @endif
+
                                     <form class="user" method="post" action="{{ route('auth.verify') }}">
                                         @csrf
                                         <div class="form-group">

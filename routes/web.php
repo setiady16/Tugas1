@@ -19,8 +19,14 @@ Route::get('/', function () {
 
 Route::get('/Login',[App\Http\Controllers\AuthController::class, 'index'])->name('auth.index')->middleware('guest');
 Route::post('/Login',[App\Http\Controllers\AuthController::class, 'verify'])->name('auth.verify');
-Route::get('/Logout',[App\Http\Controllers\AuthController::class, 'Logout'])->name('auth.Logout');
 
-Route::get('/admin',[App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
-Route::get('/admin/profile',[App\Http\Controllers\DashboardController::class, 'profile'])->name('dashboard.profile');
+Route::group(['middleware' => 'auth:user'], function(){
+    Route::prefix('admin')->group(function (){
+        Route::get('/',[App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
+        Route::get('/profile',[App\Http\Controllers\DashboardController::class, 'profile'])->name('dashboard.profile');
+    });
+
+    Route::get('/Logout',[App\Http\Controllers\AuthController::class, 'Logout'])->name('auth.Logout');
+});
+
 
